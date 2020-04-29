@@ -13,8 +13,12 @@
     "target": "es2015",
     "lib": [
       "es2018",
+<<<<<<< HEAD
       "dom",
       "DOM.Iterable"
+=======
+      "dom"
+>>>>>>> eee8baf81a0ecc1d742968b63a1da390df3a6d1c
     ]
   },
   "angularCompilerOptions": {

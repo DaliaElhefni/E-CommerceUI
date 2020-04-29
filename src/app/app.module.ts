@@ -1,16 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-<<<<<<< HEAD
-import {FormsModule} from '@angular/forms'
+import { FormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
-import { HttpClientModule, HTTP_INTERCEPTORS }  from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import {AuthenticationService} from './services/authentication.service'
-import {TokenInterceptorService} from './services/token-interceptor.service'
-import {CookieService} from 'ngx-cookie-service';
+import { AuthenticationService } from './services/authentication.service'
+import { TokenInterceptorService } from './services/token-interceptor.service'
+import { AllOrdersComponent } from './components/all-orders/all-orders.component';
+import { CookieService } from 'ngx-cookie-service';
 import { ProfileComponent } from './components/profile/profile.component'
 
 @NgModule({
@@ -18,7 +18,8 @@ import { ProfileComponent } from './components/profile/profile.component'
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    AllOrdersComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -26,29 +27,14 @@ import { ProfileComponent } from './components/profile/profile.component'
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
+    
   ],
-  providers: [AuthenticationService,CookieService,{
-  provide:  HTTP_INTERCEPTORS,
-  useClass: TokenInterceptorService,
-  multi: true  
+  providers: [AuthenticationService, CookieService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
   }],
-=======
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AllOrdersComponent } from './components/all-orders/all-orders.component';
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    AllOrdersComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
->>>>>>> eee8baf81a0ecc1d742968b63a1da390df3a6d1c
   bootstrap: [AppComponent]
 })
 export class AppModule { }

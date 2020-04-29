@@ -26,6 +26,11 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "bootstrap": "^4.4.1",
     "jquery": "^3.5.0",
+<<<<<<< HEAD
+    "ngx-cookie-service": "^3.0.4",
+    "popper.js": "^1.16.1",
+=======
+>>>>>>> eee8baf81a0ecc1d742968b63a1da390df3a6d1c
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

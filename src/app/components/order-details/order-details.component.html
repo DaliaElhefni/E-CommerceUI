@@ -1,0 +1,99 @@
+<div class="offset-1 col-10 offset-md-2 col-md-8 shadow mt-5 p-3 pb-5 rounded-top rounded-bottom mb-5">
+    <div class="row p-0 m-0">
+        <h1 class="col-sm-8 col-md-6 col-12 text-center text-sm-left mb-5 mb-sm-1">Order # {{orderNumber}}</h1>
+        <div class="offset-sm-0 offset-4 col-xl-2 col-lg-3 col-4 p-2 text-secondary h-50 border border-secondary rounded-top rounded-bottom text-center" *ngIf='order.status == "pending"'>
+            <i class="fas fa-ellipsis-h mr-lg-2"></i>
+            Pending
+        </div>
+        <div class="offset-sm-0 offset-4 col-xl-2 col-lg-3 col-4 p-2 text-danger h-50 border border-danger rounded-top rounded-bottom text-center" *ngIf='order.status == "rejected"'>
+            <i class="fas fa-times-circle mr-lg-2 "></i>
+            Rejected
+        </div>
+        <div class="offset-sm-0 offset-4 col-xl-2 col-lg-3 col-4 p-2 text-success h-50 border border-success rounded-top rounded-bottom text-center" *ngIf='order.status == "accepted"'>
+            <i class="fas fa-check mr-lg-2"></i>
+            Accepted
+        </div>
+    </div>
+
+    <div class="row p-0 m-0 mt-4">
+        <h6 class="col-11 ml-2 text-center text-sm-left">{{order.date| customFormatOrderDate}}</h6>
+    </div>
+
+    <div class="row m-0 mt-4 d-block">
+        <div class="row m-0 p-0  border-left ">
+            <div class="col-lg-3 col-12  p-0 border-top border-right">
+                <h5 class="font-weight-bold ml-3 mt-3 text-center text-lg-left">Items Ordered</h5>
+                <hr class="d-lg-none col-10  mb-0">
+            </div>
+        </div>
+        <div class="row m-0 p-0  border-left border-right d-lg-flex d-none ">
+            <div class="col-lg-3 p-3 pt-4">
+                <h6 class="font-weight-bold ">Product Name</h6>
+            </div>
+            <div class="col-lg-3 border-top p-3 pt-4">
+                <h6 class="font-weight-bold">Image</h6>
+            </div>
+            <div class="col-lg-3 border-top p-3 pt-4">
+                <h6 class="font-weight-bold">Quantity Ordered</h6>
+            </div>
+            <div class="col-lg-3 border-top p-3 pt-4">
+                <h6 class="font-weight-bold">Price</h6>
+            </div>
+            <hr class="col-11 mt-2 mb-0 ">
+        </div>
+
+
+        <div class="row m-0 p-0  border-left border-right text-center text-lg-left " *ngFor="let product of order.products">
+            <div class="col-lg-3 col-12 p-lg-3 pt-lg-4 mt-3">
+                <p class="d-lg-none font-weight-bold">Product Name</p>
+                <p class="text-capitalize ">{{product.product.title}}</p>
+            </div>
+            <div class="col-lg-3 p-lg-3 pt-lg-4">
+                <!-- <p >{{product.product.productimage}}</p> -->
+                <img [src]="imageSrc" alt="" width="100" height="80" class="mb-3 mb-lg-0">
+            </div>
+            <div class="col-lg-3 p-lg-3 pt-lg-4  ">
+                <p class="d-lg-none font-weight-bold">Quantity Ordered</p>
+                <p class="pl-lg-3">{{product.quantityordered}}</p>
+            </div>
+            <div class="col-lg-3 p-lg-3 pt-lg-4">
+                <p class="d-lg-none font-weight-bold">Price</p>
+                <p>{{product.product.price * product.quantityordered}}</p>
+            </div>
+            <hr class="col-11 mt-lg-2 mb-0 ">
+        </div>
+
+        <div class="row m-0 p-0 beigeColor text-center text-lg-left border-left border-right border-bottom ">
+            <div class="col-lg-3">
+            </div>
+            <div class="col-lg-3">
+            </div>
+            <div class="col-lg-3 p-3 pt-4">
+                <h6 class="font-weight-bold">Total</h6>
+            </div>
+            <div class="col-lg-3 p-3 pt-4">
+                <p>{{order.totalprice}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row p-0 m-0 mt-5 d-block text-center text-lg-left ">
+        <div class="row p-0 m-0">
+            <h4 class="col-12 font-weight-bold font ">Order Information</h4>
+            <hr class="col-12 p-0">
+        </div>
+        <div class="row p-0 m-0">
+            <div class="col-lg-4">
+                <h5 class="font-weight-bold"> Shipping Address</h5>
+                <p>{{order.address}}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="font-weight-bold"> Billing Address</h5>
+                <p>{{order.address}}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="font-weight-bold"> Shipping Date</h5>
+                <p>{{shippingDate|formatDate}}</p>
+            </div>
+        </div>
+    </div>
+</div>

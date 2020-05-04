@@ -1,73 +1,82 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { OrdersService } from 'src/app/services/orders.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-orders',
   templateUrl: './all-orders.component.html',
   styleUrls: ['./all-orders.component.css']
 })
-export class AllOrdersComponent implements OnInit {
+export class AllOrdersComponent implements OnInit, OnDestroy {
 
   orders = [];
-  
+  subscriber;
 
-  constructor() { 
-    let user = {
-      username: "Dalia",
-      id: "1"
-    }
-    
-    let order1 = {
-      _id:"jahb27rybf7wy3y",
-      date: Date.now(),
-      address: "hgj",
-      totalprice: "12",
-      status: "accepted",
-      user: user,
-      products: [{product:"1", orderedquantity:"2"},{product:"1", orderedquantity:"2"}]
-    }
-    let order2 = {
-      _id:"75r3rvuy874ehf7ih",
-      date: Date.now(),
-      address: "hjbd jh",
-      totalprice: "12",
-      status: "rejected",
-      user: user,
-      products: [{product:"1", orderedquantity:"2"},{product:"1", orderedquantity:"2"}]
-    }
-    let order3 = {
-      _id:"hjbilnley83r4",
-      date: Date.now(),
-      address: "6 oct city",
-      totalprice: "1000",
-      status: "pending",
-      user: user,
-      products: [{product:"1", orderedquantity:"2"},{product:"1", orderedquantity:"2"}]
-    }
-    this.orders.push(order1);
-    this.orders.push(order2);
-    this.orders.push(order3);
-
+  constructor(private ordersService: OrdersService, private router: Router) {
+  }
+  ngOnDestroy(): void {
+    this.subscriber.unsubscribe();
   }
 
-  acceptOrder(param){
-    let order = this.orders.find( o=> o._id === param );
-    // update db
+
+  getAllOrders() {
+    this.subscriber = this.ordersService.getAllOrders()
+      .subscribe((orders: Array<any>) => {
+        if (orders) {
+          this.orders = orders;
+        }
+      },
+        (err) => {
+          console.log(err)
+        });
+  }
+
+  acceptOrder(param) {
+    let order = this.orders.find(o => o._id === param);
     order.status = "accepted";
-    // update db
+    this.subscriber = this.ordersService.changeOrderState(order)
+      .subscribe((res: string) => {
+        if (res) {
+          console.log(res);
+        }
+      },
+        (err) => {
+          console.log(err);
+          order.status = "pending";
+        });
   }
 
-  rejectOrder(param){
-    let order = this.orders.find( o=> o._id === param );
-    // update db
+  rejectOrder(param) {
+    let order = this.orders.find(o => o._id === param);
     order.status = "rejected";
-    
+    this.subscriber = this.ordersService.changeOrderState(order)
+      .subscribe((res: string) => {
+        if (res) {
+          console.log(res);
+        }
+      },
+        (err) => {
+          console.log(err);
+          order.status = "pending";
+        });
   }
 
-  showDetails(param){
-    console.log(param);
+  showDetails(event: Event, param) {
+    if ((event.target as HTMLElement).tagName !== "BUTTON") {
+      let parent = event.target as HTMLElement;
+      for (let i = 0; i < 5; i++) {
+        if (parent.classList.contains("rowHover")) {
+          break;
+        }
+        parent = parent.parentElement;
+      }
+      const orderNumber= parent.childNodes[0].childNodes[1].textContent.substring(1);
+      this.router.navigate([`orders/${param}`, { orderNumber: orderNumber }]);
+    }
   }
 
   ngOnInit(): void {
+    this.getAllOrders();
   }
 
 }

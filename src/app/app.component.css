@@ -1,0 +1,23 @@
+.firstNavBar{
+    height: 65px;
+}
+.orangeColor{
+    color: #f16821;
+}
+
+.newFont{
+    font-family: fantasy;
+}
+.stick{
+    position: sticky;
+    top:0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav a{
+    color: black;
+}
+
+.active{
+    color: #f16821 !important;
+}

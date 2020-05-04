@@ -11,9 +11,14 @@
 .shadow{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 15px;
+    font-size: large;
 }
 .tableheadcolor{
     background-color: rgb(220, 244, 248);
+}
+
+.statusWidth{
+    width: 90%;
 }
 .rowHover:hover{
     background-color: aliceblue;
@@ -22,17 +27,5 @@
 
 
 .statusDiv:hover{
-    cursor: default;
-}
-
-.statusWidth{
-    width: 90%;
-}
-tbody tr:hover{
-    background-color: aliceblue;
-    cursor: pointer;
-}
-
-tbody td div:hover{
     cursor: default;
 }

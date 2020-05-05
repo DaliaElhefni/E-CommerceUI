@@ -56,7 +56,7 @@ export class UserOrdersComponent implements OnInit, OnDestroy {
         }
         parent = parent.parentElement;
       }
-      const orderNumber= parent.childNodes[0].childNodes[1].textContent.substring(1);
+      const orderNumber= parent.childNodes[1].childNodes[0].textContent.substring(1);
       this.router.navigate([`orders/${param}`, { orderNumber: orderNumber }]);
     }
   }

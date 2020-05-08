@@ -1,5 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { DetailsComponent } from './components/account/details/details.component';
+import {UserService} from './services/user.service'
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { ToastrModule } from 'ngx-toastr';
+import { AboutComponent } from './components/about/about.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {RouterModule, Routes} from '@angular/router';
 import { FormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
@@ -25,13 +32,15 @@ const routes:Routes = [
  
 ]
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsComponent,
-    SoloProuctComponent,
     RegisterComponent,
     LoginComponent,
+    DetailsComponent,
+    ProductsComponent,
+    SoloProuctComponent,
     ProfileComponent,
     AllOrdersComponent
   ],
@@ -39,18 +48,21 @@ const routes:Routes = [
     ReactiveFormsModule,
     FormsModule,
     BrowserModule,
-    AppRoutingModule
-    ,HttpClientModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
+    CommonModule,
+    FontAwesomeModule,
     RouterModule.forRoot(routes)
-
   ],
-  providers: [AuthenticationService, CookieService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true
+  providers: [AuthenticationService,UserService,CookieService,{
+  provide:  HTTP_INTERCEPTORS,
+  useClass: TokenInterceptorService,
+  multi: true  
   },
-  ProductServiceService],
-
+  ProductServiceService
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

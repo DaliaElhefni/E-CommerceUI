@@ -42,7 +42,8 @@ const routes:Routes = [
     ProductsComponent,
     SoloProuctComponent,
     ProfileComponent,
-    AllOrdersComponent
+    AllOrdersComponent,
+    AboutComponent
   ],
   imports: [
     ReactiveFormsModule,

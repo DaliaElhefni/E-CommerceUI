@@ -1,0 +1,246 @@
+<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div  class="container">
+  <div class="container col-md-2 col-sm-4">
+    <div class="row image">
+      <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 40rem;">
+        <br>
+        <p class="card-text">Profile Image</p>
+        <img class="card-img-top rounded" [src]="profileimage" alt="Card image cap">
+        <div class="card-body">
+          <!-- /////////////// -->
+          <div *ngIf="showImageModale" class="modal" id="imageModal" [ngClass]="{'show':showImageModale}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Upload Photo</h4>
+                </div>
+          
+                <!-- Modal body -->
+                <form class="form" [formGroup]="imageForm" novalidate (ngSubmit)="onImageUpdate()">                               
+                  <div class="form-group">
+                    <label for="file">Profile Image</label>
+                    <input
+                        formControlName="profileimage"
+                        id="file"
+                        type="file"
+                        class="form-control btn btn-primary"
+                        (change)="onFileChange($event)">
+                    <div *ngIf="f.profileimage.touched && f.profileimage.invalid" class="alert alert-danger">
+                        <div *ngIf="f.profileimage.errors.required">Image is required.</div>
+                    </div>
+                </div>                
+              <button type="button" class="btn btn-primary float-right" type="submit">Edit</button>
+              <button type="button" class="btn btn-danger float-left" data-dismiss="modal">Close</button>
+              </form>
+              </div>
+            </div>
+          </div>
+          <!-- ////////////// -->
+          <a href="#" (click)="showImageModale = true" data-toggle="modal" data-target="#imageModal">
+            <span  class="glyphicon glyphicon-edit">Upload</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="col-sm-1"></div>
+  <div class="container col-md-9 col-sm-10">
+    <div class="row personal_info">
+      <div class="card shadow p-3 mb-5 bg-white rounded col-md-9" >
+        <br>
+        <p class="card-text">Personal Information</p>
+        <div class="element">Name: {{username}}</div>
+        <br>
+        <div class="element">Gender: {{gender}} </div>
+        <div class="card-body">
+          <!-- //////////////////// -->
+          <div *ngIf="showPersonalModale" class="modal" id="personalModal" [ngClass]="{'show':showPersonalModale}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Update Persona Info</h4>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <form class="form" [formGroup]="personalForm" novalidate (ngSubmit)="onPersonalUpdate()">                               
+                    <div class="form-group">
+                      <label for="">UserName</label>
+                      <input formControlName="username" type="text"
+                          class="form-control rounded-0" [class.is-invalid]="p.username.invalid && p.username.touched" minlength="4" required>
+                      <div *ngIf="submitted && p.username.invalid"
+                          class="alert alert-danger">
+                          <div *ngIf="submitted && p.username.errors.required">
+                              Name is required.
+                          </div>
+                          <div *ngIf="submitted && p.username.errors.minlength">
+                              Name must be at least 4 characters long.
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Gender</label>
+                    <select  class="form-control" formControlName="gender" required>
+                        <option value="" selected disabled>Gender</option>
+                        <option value="male"> Male</option>
+                        <option value="female"> Female </option>
+                    </select>
+                    <div *ngIf="submitted && p.gender.errors" class="alert alert-danger">
+                        <div *ngIf="p.gender.errors.required">gender is required</div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary float-right" type="submit">Update</button>
+                <button type="button" class="btn btn-danger float-left" data-dismiss="modal">Close</button>
+                </form>
+                </div>
+            
+              </div>
+            </div>
+          </div>
+        
+          <!-- /////////////////// -->
+          <a href="#" class="edit" (click)="showPersonalModale = true" data-toggle="modal" data-target="#personalModal">
+            <span class="glyphicon glyphicon-edit">Edit</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row account_info">
+      <div class="card shadow p-3 mb-5 bg-white rounded col-md-9" >
+        <br>
+        <p class="card-text">Account Details</p>
+        <div class="element">Language: English </div>
+        <br>
+        <div class="element">Authorization: {{role}} </div>
+        <div class="card-body">         
+          <a href="#" class="edit">
+            <span ></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row contact_info">
+      <div class="card shadow p-3 mb-5 bg-white rounded col-md-9" >
+        <br>
+        <p class="card-text">Contact Information</p>
+        <div class="element">E-Mail: {{email}} </div>
+        <br>
+        <div class="element">Phone-Number: {{phone}} </div>
+        <div class="card-body">
+          <!-- ///////////////////////////////////////////////////////// -->
+          <div *ngIf="showContactModale" class="modal" id="contactModale" [ngClass]="{'show':showContactModale}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Update Contact Info</h4>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <form class="form" [formGroup]="contactForm" novalidate (ngSubmit)="onContactUpdate()">                               
+                    <div class="form-group">
+                      <label for="">Email</label>
+                      <input formControlName="email" type="text" [class.is-invalid]="c.email.invalid && c.email.touched" class="form-control rounded-0" required>
+                      <div *ngIf="submitted && c.email.errors" class="alert alert-danger">
+                          <div *ngIf="c.email.errors.required">Email is required</div>
+                          <div *ngIf="c.email.errors.email">Email must be a valid email address</div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Phone</label>
+                    <input formControlName="phone" type="text" [class.is-invalid]="c.phone.invalid && c.phone.touched"
+                        class="form-control rounded-0" required>
+                        <div *ngIf="submitted && c.phone.errors" class="alert alert-danger">
+                            <div *ngIf="c.phone.errors.required">Phone is required</div>
+                            <div *ngIf="c.phone.errors.pattern || c.phone.errors.maxLength || c.phone.errors.minlength">Invalid Phone</div>
+                        </div>
+                </div>
+                <button type="button" class="btn btn-primary float-right" type="submit">Update</button>
+                <button type="button" class="btn btn-danger float-left" data-dismiss="modal">Close</button>
+                </form>
+                </div>
+            
+              </div>
+            </div>
+          </div>
+                  <!-- /////////////////////////////////////////////////////// -->
+          <a href="#" class="edit" (click)="showContactModale = true" data-toggle="modal" data-target="#contactModale">
+            <span class="glyphicon glyphicon-edit">Edit</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row security">
+      <div class="card shadow p-3 mb-5 bg-white rounded col-md-9" >
+        <br>
+        <p class="card-text">Security</p>
+        <div class="element">Password: ************** </div>
+        <br>
+        <div class="card-body">
+          <!-- /////////////////////////// -->
+
+          <div *ngIf="showPasswordModale" class="modal" id="passwordModale" [ngClass]="{'show':showPasswordModale}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Update Contact Info</h4>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <form class="form" [formGroup]="passwordForm" novalidate (ngSubmit)="onPasswordUpdate()">                               
+                    <div class="form-group">
+                      <label for="">New Password</label>
+                      <input formControlName="password" type="password"
+                          class="form-control rounded-0" [class.is-invalid]="pass.password.invalid && pass.password.touched" required>
+                          <div *ngIf="submitted && pass.password.errors" class="alert alert-danger">
+                              <div *ngIf="pass.password.errors.required">Password is required</div>
+                              <div *ngIf="pass.password.errors.minlength">Password must be at least 6 characters</div>
+                          </div>
+                  </div>
+                  <div class="form-group">
+                      <label>Confirm Password</label>
+                  <input type="password" formControlName="confirmPassword" [class.is-invalid]="pass.confirmPassword.invalid && pass.confirmPassword.touched" class="form-control"  />
+                  <div *ngIf="submitted && pass.confirmPassword.errors" class="alert alert-danger">
+                      <div *ngIf="pass.confirmPassword.errors.required">Confirm Password is required</div>
+                      <div *ngIf="pass.confirmPassword.errors.mustMatch">Passwords must match</div>
+                  </div>
+                  </div>
+                  
+                <button type="button" class="btn btn-primary float-right" type="submit">Update</button>
+                <button type="button" class="btn btn-danger float-left" data-dismiss="modal">Close</button>
+                </form>
+                </div>
+            
+              </div>
+            </div>
+          </div>
+          
+
+          <!-- ////////////////////////// -->
+          <br>
+          <a href="#" class="edit" (click)="showPasswordModale = true" data-toggle="modal" data-target="#passwordModale">
+            <span class="glyphicon glyphicon-edit">Edit</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<div class=" pt-5" >
+    <div class="col-sm-5 mx-auto" >
+<div *ngIf="errorMessage"  class="alert alert-danger">{{errorMessage}}</div>
+        <div class="card rounded-0" >
+            <div class="card-header" >
+                <h3 class="mb-0">Register</h3>
+            </div>
+            <div class="card-body">
+                <form class="form" [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="">UserName</label>
+                        <input formControlName="username" type="text"
+                            class="form-control rounded-0" [class.is-invalid]="f.username.invalid && f.username.touched" minlength="4" required>
+                        <div *ngIf="submitted && f.username.invalid"
+                            class="alert alert-danger">
+                            <div *ngIf="submitted && f.username.errors.required">
+                                Name is required.
+                            </div>
+                            <div *ngIf="submitted && f.username.errors.minlength">
+                                Name must be at least 4 characters long.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input formControlName="email" type="text" [class.is-invalid]="f.email.invalid && f.email.touched" class="form-control rounded-0" required>
+                        <div *ngIf="submitted && f.email.errors" class="alert alert-danger">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">password</label>
+                        <input formControlName="password" type="password"
+                            class="form-control rounded-0" [class.is-invalid]="f.password.invalid && f.password.touched" required>
+                            <div *ngIf="submitted && f.password.errors" class="alert alert-danger">
+                                <div *ngIf="f.password.errors.required">Password is required</div>
+                                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                                <div *ngIf="f.password.errors.pattern">Password must have :
+                                    <ul>
+                                        <li>
+                                            At least 8 characters in length
+                                        </li>
+                                        <li>
+                                            Lowercase letters
+                                        </li>
+                                        <li>
+                                            Uppercase letters
+                                        </li>
+                                        <li>
+                                            Numbers and Special characters
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                    <input type="password" formControlName="confirmPassword" [class.is-invalid]="f.confirmPassword.invalid && f.confirmPassword.touched" class="form-control"  />
+                    <div *ngIf="submitted && f.confirmPassword.errors" class="alert alert-danger">
+                        <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                        <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Phone</label>
+                        <input formControlName="phone" type="text" [class.is-invalid]="f.phone.invalid && f.phone.touched"
+                            class="form-control rounded-0" required>
+                            <div *ngIf="submitted && f.phone.errors" class="alert alert-danger">
+                                <div *ngIf="f.phone.errors.required">Phone is required</div>
+                                <div *ngIf="f.phone.errors.pattern || f.phone.errors.maxLength || f.phone.errors.minlength">Invalid Phone</div>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Profile Image</label>
+                            <div class="file-field">
+                                <div class="btn btn-primary btn-sm float-left" (click)="imageupload.click()">
+                                  <span>Choose file</span>
+                                  <input 
+                                style="display: none;"
+                                type="file" 
+                                formControlName="profileimage"
+                                id="file"
+                                type="file"
+                                class="form-control"
+                                (change)="onFileChange($event)"
+                                #imageupload>
+                                </div>
+                                <div class="file-path-wrapper">
+                                  <div class="file-path validate" type="text" placeholder="Upload your file">{{imageToUpload}}</div>
+                                </div>
+                              </div>
+                        <div *ngIf="f.profileimage.touched && f.profileimage.invalid" class="alert alert-danger">
+                            <div *ngIf="f.profileimage.errors.required">Image is required.</div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="">Gender</label>
+                        <select  class="form-control" formControlName="gender" required>
+                            <option value="" selected disabled>Gender</option>
+                            <option value="male"> Male</option>
+                            <option value="female"> Female </option>
+                        </select>
+                        <div *ngIf="submitted && f.gender.errors" class="alert alert-danger">
+                            <div *ngIf="f.gender.errors.required">gender is required</div>
+                        </div>
+                        <br>
+                    </div>
+                    <div style="text-align: center;">
+                    <button  type="button" class="btn btn-primary " type="submit">Register</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

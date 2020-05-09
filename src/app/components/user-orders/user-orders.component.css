@@ -25,10 +25,6 @@ tbody td div:hover{
     cursor: default;
 }
 
-.headerBorder{
-    border-left: solid 5px #f16821;
-}
-
 @media(min-width:0px) {
     .cardHead {
         background-color: #343a40;

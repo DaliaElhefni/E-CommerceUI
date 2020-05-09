@@ -3,6 +3,7 @@ import {AuthenticationService} from '../../services/authentication.service'
 import { FormBuilder, FormGroup, Validators , FormControl } from '@angular/forms';
 import { MustMatch } from '../../../../helpers/must-match.validator';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
 loginForm : FormGroup;
 submitted = false;
 errorMessage = null;
-  constructor(private _authenticationService : AuthenticationService , private formBuilder : FormBuilder ,private cookie:CookieService) { }
+  constructor(private toastr: ToastrService,private _authenticationService : AuthenticationService , private formBuilder : FormBuilder ,private cookie:CookieService) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -48,8 +49,15 @@ errorMessage = null;
   delete this.loginForm.value.confirmPassword;
 
     this._authenticationService.loginUser(this.loginForm.value).subscribe(
-      res => this.cookie.set('token',res.token),
-      err => this.errorMessage = err.error
+      res => {
+        this.cookie.set('token',res.token)
+      this.toastr.success("Succesful Login");
+      },
+      err => {
+        this.errorMessage = err.error
+      this.toastr.error(this.errorMessage);
+      
+      }
     )
   }
 

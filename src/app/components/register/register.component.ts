@@ -3,6 +3,7 @@ import {AuthenticationService} from '../../services/authentication.service'
 import { FormBuilder, FormGroup, Validators , FormControl } from '@angular/forms';
 import { MustMatch } from '../../../../helpers/must-match.validator';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -13,10 +14,11 @@ import { CookieService } from 'ngx-cookie-service';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
+  imageToUpload;
   submitted = false;
   profileimage : File;
   errorMessage = null;
-  constructor(private _authenticationService:AuthenticationService , private formBuilder:FormBuilder , private cookie:CookieService) {
+  constructor(private toastr: ToastrService, private _authenticationService:AuthenticationService , private formBuilder:FormBuilder , private cookie:CookieService) {
 
    }
 
@@ -24,7 +26,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       "username": ['',[Validators.required]],
       "email": ['', [Validators.required, Validators.email]],
-      "password": ['', [Validators.required, Validators.minLength(6)]],
+      "password": ['', [Validators.required, Validators.minLength(6) , Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
       "confirmPassword": ['', Validators.required],
       "phone": ['', [Validators.required , Validators.maxLength(11) , Validators.minLength , Validators.pattern("^[0][1][0-9]{9}$")]],
       "profileimage":['',Validators.required],
@@ -38,9 +40,8 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
   
   onFileChange(event) {
-    
 this.profileimage = event.target.files[0];
-    
+this.imageToUpload = event.target.files[0].name;
   }
   
   onSubmit() {
@@ -64,12 +65,21 @@ formData.append('phone', this.registerForm.get('phone').value);
 formData.append('profileimage', this.profileimage , this.profileimage.name);
 formData.append('gender', this.registerForm.get('gender').value);
 
+  // for (var pair of formData.entries()) {
+  //     console.log(pair[0]+ ', ' + pair[1]); 
+  // }
+
 this._authenticationService.registerUser(formData)
 .subscribe(
   res => {
     this.cookie.set('token',res.token);
+    this.toastr.success("Succesful Register")
   },
-  err => this.errorMessage = err.error
+  err => {
+    console.log(err)
+    this.errorMessage = err.error
+    this.toastr.error("Something Wrong, Check Fields Again")
+  }
 );
 
   }

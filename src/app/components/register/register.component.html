@@ -1,8 +1,8 @@
-<h1 *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</h1>
-<div class="row pt-5">
-    <div class="col-md-6 mx-auto">
-        <div class="card rounded-0">
-            <div class="card-header">
+<div class=" pt-5" >
+    <div class="col-sm-5 mx-auto" >
+<div *ngIf="errorMessage"  class="alert alert-danger">{{errorMessage}}</div>
+        <div class="card rounded-0" >
+            <div class="card-header" >
                 <h3 class="mb-0">Register</h3>
             </div>
             <div class="card-body">
@@ -36,6 +36,23 @@
                             <div *ngIf="submitted && f.password.errors" class="alert alert-danger">
                                 <div *ngIf="f.password.errors.required">Password is required</div>
                                 <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                                <div *ngIf="f.password.errors.pattern">Password must have :
+                                    <ul>
+                                        <li>
+                                            At least 8 characters in length
+                                        </li>
+                                        <li>
+                                            Lowercase letters
+                                        </li>
+                                        <li>
+                                            Uppercase letters
+                                        </li>
+                                        <li>
+                                            Numbers and Special characters
+                                        </li>
+                                    </ul>
+                                </div>
+
                             </div>
                     </div>
                     <div class="form-group">
@@ -57,16 +74,28 @@
                     </div>
                     <div class="form-group">
                         <label for="file">Profile Image</label>
-                        <input
-                            formControlName="profileimage"
-                            id="file"
-                            type="file"
-                            class="form-control"
-                            (change)="onFileChange($event)">
+                            <div class="file-field">
+                                <div class="btn btn-primary btn-sm float-left" (click)="imageupload.click()">
+                                  <span>Choose file</span>
+                                  <input 
+                                style="display: none;"
+                                type="file" 
+                                formControlName="profileimage"
+                                id="file"
+                                type="file"
+                                class="form-control"
+                                (change)="onFileChange($event)"
+                                #imageupload>
+                                </div>
+                                <div class="file-path-wrapper">
+                                  <div class="file-path validate" type="text" placeholder="Upload your file">{{imageToUpload}}</div>
+                                </div>
+                              </div>
                         <div *ngIf="f.profileimage.touched && f.profileimage.invalid" class="alert alert-danger">
                             <div *ngIf="f.profileimage.errors.required">Image is required.</div>
                         </div>
                     </div>
+                    <br>
                     <div class="form-group">
                         <label for="">Gender</label>
                         <select  class="form-control" formControlName="gender" required>
@@ -77,8 +106,11 @@
                         <div *ngIf="submitted && f.gender.errors" class="alert alert-danger">
                             <div *ngIf="f.gender.errors.required">gender is required</div>
                         </div>
+                        <br>
                     </div>
-                    <button type="button" class="btn btn-primary float-right" type="submit">Register</button>
+                    <div style="text-align: center;">
+                    <button  type="button" class="btn btn-primary " type="submit">Register</button>
+                </div>
                 </form>
             </div>
         </div>

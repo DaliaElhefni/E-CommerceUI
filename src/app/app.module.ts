@@ -26,15 +26,8 @@ import { UserOrdersComponent } from './components/user-orders/user-orders.compon
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { FormatDatePipe } from './pipes/format-date.pipe';
 import { CustomFormatOrderDatePipe } from './pipes/custom-format-order-date.pipe';
+import { OrdersService } from './services/orders.service';
 
-
-
-
-const routes:Routes = [
- 
-  {path:'products/:id',component:SoloProuctComponent}
- 
-]
 
 
 @NgModule({
@@ -63,14 +56,14 @@ const routes:Routes = [
     ToastrModule.forRoot(),
     CommonModule,
     FontAwesomeModule,
-    RouterModule.forRoot(routes)
   ],
   providers: [AuthenticationService,UserService,CookieService,{
   provide:  HTTP_INTERCEPTORS,
   useClass: TokenInterceptorService,
   multi: true  
   },
-  ProductServiceService
+  ProductServiceService,
+  OrdersService,
 ],
   bootstrap: [AppComponent]
 })

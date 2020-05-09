@@ -1,22 +1,21 @@
 
-<div class="offset-lg-2 offset-md-1 col-md-10 col-lg-8 col-10 offset-1  mt-5 mt-md-3  p-0 mb-5">
-    
+<div class="offset-xl-2 offset-md-1 col-md-10 col-xl-8 col-10 offset-1  mt-5 mt-md-3  p-0 mb-5">
     <div class="bg-white row d-block m-0 p-0 shadow rounded-bottom text-center text-md-left">
         <div class="row p-0 pl-3 pr-2 pt-3  m-0 tablehead bg-dark rounded-top  d-none d-md-flex">
             <div class="col-1 p-0">
-                <p class="ml-0 mt-2" >Order</p>
+                <p class="ml-0 " >Order</p>
             </div>
             <div class="col-2 p-0">
-                <p class="mt-2">Date</p>
+                <p>Date</p>
             </div>
             <div class="col-2 p-0">
-                <p class="mt-2">Customer</p>
+                <p>Customer</p>
             </div>
             <div class="col-1 p-0">
-                <p>Total Price</p>
+                <p class="mr-xl-2">Total Price</p>
             </div>
             <div class="col-2 p-0">
-                <p class="mt-2">Status</p>
+                <p>Status</p>
             </div>
             <div class="col-2 p-0">
             </div>
@@ -59,12 +58,16 @@
                 </div>
             </div>
             <div class="offset-3 offset-md-0 col-6  col-md-2 p-0 pb-4 pb-md-0">
-                <button class="btn btn-success statusWidth pr-3" (click)='acceptOrder(order._id)' *ngIf='order.status == "pending"'>Accept</button>
-                <!-- <button  class="btn btn-danger statusWidth " (click)='cancelOrder(order._id)' *ngIf='order.status == "pending"'>Cancel</button> -->
+                <button class="btn btn-success statusWidth  pr-3" (click)='acceptOrder(order._id)' *ngIf='order.status == "pending"'>Accept</button>
             </div>
             <div class="offset-3 offset-md-0 col-6  col-md-2 p-0">
                 <button  class="btn btn-danger statusWidth pr-3" (click)='rejectOrder(order._id)' *ngIf='order.status == "pending"'>Reject</button>
             </div>
+
+            <!-- <div class="offset-3 offset-md-0 col-6  col-md-2 p-0">
+                <button class="btn btn-success statusWidth  pr-3" (click)='acceptOrder(order._id)' *ngIf='order.status == "pending"'>Accept</button>
+                <button  class="btn btn-danger statusWidth pr-3 mt-3" (click)='rejectOrder(order._id)' *ngIf='order.status == "pending"'>Reject</button>
+            </div> -->
             <hr class="col-12 p-0 m-0 mt-3 text-dark">
         </div>
     </div>

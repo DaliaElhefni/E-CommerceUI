@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators , FormControl } from '@angular/forms
 import { MustMatch } from '../../../../helpers/must-match.validator';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
 loginForm : FormGroup;
 submitted = false;
 errorMessage = null;
-  constructor(private toastr: ToastrService,private _authenticationService : AuthenticationService , private formBuilder : FormBuilder ,private cookie:CookieService) { }
+  constructor(private toastr: ToastrService,private _authenticationService : AuthenticationService,  private router: Router , private formBuilder : FormBuilder ,private cookie:CookieService) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -51,7 +52,8 @@ errorMessage = null;
     this._authenticationService.loginUser(this.loginForm.value).subscribe(
       res => {
         this.cookie.set('token',res.token)
-      this.toastr.success("Succesful Login");
+        this.toastr.success("Succesful Login");
+        this.router.navigate([`home`, { }]);
       },
       err => {
         this.errorMessage = err.error

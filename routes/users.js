@@ -324,7 +324,6 @@ router.put('/:id', verify.verifyToken,upload.single('profileimage'), async (req,
 
     if ('password' in body) {
         // hash the password
-<<<<<<< HEAD
        await Bcrypt.hashPassword(body.password)
         .then((hashValue) => {
             body.password = hashValue;
@@ -338,19 +337,6 @@ router.put('/:id', verify.verifyToken,upload.single('profileimage'), async (req,
         if (error) {
             res.status(500).send("Error Can't Update");
         } else if(success) {
-=======
-        Bcrypt.hashPassword(body.password)
-            .then((hashValue) => {
-                body.password = hashValue;
-            })
-            .catch((err) => { res.send(err) });
-    }
-
-    await userModel.findByIdAndUpdate(id, body, function (error, success) {
-        if (error) {
-            res.status(500).send("Error Can't Update");
-        } else {
->>>>>>> a66dd1305a8bcdab9a36f174eeee799a36d7aae0
             res.status(200).send("Updated Succesfuly");
         }
     });

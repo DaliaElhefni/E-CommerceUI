@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const usersRoutes = require('./routes/users');
 const ordersRoutes = require('./routes/orders');
 const productsRoutes = require('./routes/products');
-
+const cors = require('cors')
 const app = express();
 
  mongoose.connect('mongodb+srv://angularProject:angularProject@angularproject-p4l3j.mongodb.net/SouqDB?retryWrites=true&w=majority',

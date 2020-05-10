@@ -12,10 +12,6 @@ export class UserOrdersComponent implements OnInit, OnDestroy {
   orders = [];
   subscriber;
 
-  // constructor(myActivatedRoute:ActivatedRoute) { 
-  //   this.id = myActivatedRoute.snapshot.params["id"];  
-  // }
-  // id;
   constructor(private ordersService: OrdersService, private router: Router) {
   }
   ngOnDestroy(): void {
@@ -34,17 +30,16 @@ export class UserOrdersComponent implements OnInit, OnDestroy {
         });
   }
 
-
   cancelOrder(id) {
-    // this.subscriber = this.ordersService.cancelOrder(id)
-    //   .subscribe((res: string) => {
-    //     if (res) {
-    //       this.orders = this.orders.filter(o => o._id !== id);
-    //     }
-    //   },
-    //     (err) => {
-    //       console.log(err)
-    //     });
+    this.subscriber = this.ordersService.cancelOrder(id)
+      .subscribe((res: string) => {
+        if (res) {
+          this.orders = this.orders.filter(o => o._id !== id);
+        }
+      },
+        (err) => {
+          console.log(err)
+        });
   }
 
   showDetails(event: Event, param) {
@@ -61,6 +56,6 @@ export class UserOrdersComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit(): void {
-    this.getUserOrders("5ea6cbfbabb02b02446cd454");
+    this.getUserOrders("1");
   }
 }

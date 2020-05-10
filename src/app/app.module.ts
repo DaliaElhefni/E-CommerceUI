@@ -20,13 +20,14 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthenticationService } from './services/authentication.service'
 import { TokenInterceptorService } from './services/token-interceptor.service'
 import { CookieService } from 'ngx-cookie-service';
-import { ProfileComponent } from './components/profile/profile.component'
 import { AllOrdersComponent } from './components/all-orders/all-orders.component';
 import { UserOrdersComponent } from './components/user-orders/user-orders.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { FormatDatePipe } from './pipes/format-date.pipe';
 import { CustomFormatOrderDatePipe } from './pipes/custom-format-order-date.pipe';
 import { OrdersService } from './services/orders.service';
+import { HomeComponent } from './components/home/home.component';
+import { ErrorComponent } from './components/error/error.component';
 
 
 
@@ -38,13 +39,14 @@ import { OrdersService } from './services/orders.service';
     DetailsComponent,
     ProductsComponent,
     SoloProuctComponent,
-    ProfileComponent,
     AllOrdersComponent,
     UserOrdersComponent,
     OrderDetailsComponent,
     FormatDatePipe,
     CustomFormatOrderDatePipe,
-    AboutComponent
+    AboutComponent,
+    HomeComponent,
+    ErrorComponent
   ],
   imports: [
     ReactiveFormsModule,

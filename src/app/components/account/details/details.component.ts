@@ -122,8 +122,8 @@ export class DetailsComponent implements OnInit {
   }
 
   changeShowImageModale(){
-    console.log("hii");
-    this.showImageModale = true;
+    console.log(this.showImageModale);
+    
   }
 
   onPersonalUpdate() {

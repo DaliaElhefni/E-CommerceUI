@@ -33,7 +33,7 @@
               </li>
               <li class="nav-item col">
                 <a class="nav-link" [routerLinkActiveOptions]='{exact:true}' routerLinkActive="active"
-                  routerLink="products">Products</a>
+                  routerLink="products" (click)="checkTokenExists()">Products</a>
               </li>
 
               <li class="nav-item  col" *ngIf='user && user.role == "admin"'>
@@ -54,7 +54,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <div class="dropdown-item">
                     <i class="far fa-user mr-2"></i>
-                    <a routerLink="profile">Profile</a>
+                    <a routerLink="">Profile</a>
                   </div>
                   <div class="dropdown-item" >
                     <img class="mr-1" src="assets/icons/ordersIcon.png" height="15" width="15" />
@@ -62,7 +62,7 @@
                   </div>
                   <div class="dropdown-item" >
                     <i class="fas fa-sign-out-alt mr-2"></i>
-                    <a routerLink="">Logout</a>
+                    <a routerLink="" (click)="onLogout()">Logout</a>
                   </div>
                 </div>
               </li>

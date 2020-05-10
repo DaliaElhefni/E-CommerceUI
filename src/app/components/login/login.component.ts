@@ -56,9 +56,15 @@ errorMessage = null;
         this.router.navigate([`home`, { }]);
       },
       err => {
-        this.errorMessage = err.error
-      this.toastr.error(this.errorMessage);
-      
+        console.log(err)
+        console.log(err.statusText);
+        if(err.statusText === "Unknown Error"){
+          this.toastr.error("Server is down! Try again later.")
+        }
+        else{
+          this.errorMessage = err.error
+          this.toastr.error("Something Wrong, Check Fields Again")
+        }
       }
     )
   }

@@ -1,0 +1,60 @@
+.tablehead{
+   color: #f3864d;
+   font-weight: bold;
+   font-size: 17px;
+}
+.rowHover:hover{
+    background-color: aliceblue;
+    cursor: pointer;
+}
+
+
+.statusDiv:hover{
+    cursor: default;
+}
+
+.statusWidth{
+    width: 90%;
+}
+tbody tr:hover{
+    background-color: aliceblue;
+    cursor: pointer;
+}
+
+tbody td div:hover{
+    cursor: default;
+}
+
+@media(min-width:0px) {
+    .cardHead {
+        background-color: #343a40;
+        color: #f3864d;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+    }
+    .rowHover{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .shadow{
+        box-shadow: none !important;
+        background-color: white;
+        border-radius: 0px;
+    }
+}
+
+@media(min-width:768px ) {
+    .cardHead {
+        background-color: white;
+        color: black;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+
+    .rowHover{
+        box-shadow: none !important;
+    }
+    .shadow{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+        border-radius: 15px;
+    }
+}

@@ -1,0 +1,42 @@
+.firstNavBar{
+    height: 65px;
+}
+.orangeColor{
+    color: #f16821;
+}
+
+.newFont{
+    font-family: fantasy;
+}
+.stick{
+    position: sticky;
+    top:0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 7;
+}
+.firstNavBar a:visited { color: #007bff; }
+
+nav .navbar-nav a{
+    color: black;
+}
+
+.active{
+    color: #f16821 !important;
+}
+
+.accountLabel:hover{
+    color: #f16821 !important;
+    border-color: #f16821 !important;
+    cursor: pointer;
+}
+
+.dropdown-menu a{
+    color: black !important;
+}
+
+.dropdown-menu a:hover{
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.dropdown-toggle::after { border: none; }

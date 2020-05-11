@@ -12,6 +12,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { DetailsComponent } from './components/account/details/details.component';
 import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
+import { MessageComponent } from './components/message/message.component';
 
 const routes:Routes = [
   {path:'',redirectTo:'home',pathMatch:'full'},
@@ -25,6 +26,7 @@ const routes:Routes = [
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'profile',component:DetailsComponent},
+  {path:'message',component:MessageComponent},
   {path:'**',component:ErrorComponent},
 ]
 

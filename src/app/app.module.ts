@@ -28,6 +28,7 @@ import { CustomFormatOrderDatePipe } from './pipes/custom-format-order-date.pipe
 import { OrdersService } from './services/orders.service';
 import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
+import { MessageComponent } from './components/message/message.component';
 
 
 
@@ -46,7 +47,8 @@ import { ErrorComponent } from './components/error/error.component';
     CustomFormatOrderDatePipe,
     AboutComponent,
     HomeComponent,
-    ErrorComponent
+    ErrorComponent,
+    MessageComponent
   ],
   imports: [
     ReactiveFormsModule,

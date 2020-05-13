@@ -1,6 +1,5 @@
-import { Order } from './Order.model';
-
 export class User {
+    _id: string;
     username : string ;
     role : string ;
     email : string ; 
@@ -9,5 +8,5 @@ export class User {
     gender : string ; 
     profileimage : string ;
     products: Array<any>;
-    orders: Array<Order>;
+    orders: Array<any>;
 }

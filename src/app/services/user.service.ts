@@ -21,6 +21,4 @@ private _updateUserUrl = "http://localhost:3000/users/1"
     return this._httpclient.put<any>(this._updateUserUrl,body);
   }
 
-  
-
 }

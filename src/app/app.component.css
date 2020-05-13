@@ -36,6 +36,7 @@ nav .navbar-nav a{
 
 .dropdown-menu a:hover{
     font-weight: bold;
+    color: #f16821 !important;
     text-decoration: none;
 }
 

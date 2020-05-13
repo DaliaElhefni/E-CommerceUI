@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AboutComponent } from './components/about/about.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {RouterModule, Routes} from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ProductsComponent} from './components/Products/products.component'
@@ -29,6 +28,7 @@ import { OrdersService } from './services/orders.service';
 import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { MessageComponent } from './components/message/message.component';
+import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
 
 
 
@@ -48,7 +48,8 @@ import { MessageComponent } from './components/message/message.component';
     AboutComponent,
     HomeComponent,
     ErrorComponent,
-    MessageComponent
+    MessageComponent,
+    CheckoutFormComponent
   ],
   imports: [
     ReactiveFormsModule,

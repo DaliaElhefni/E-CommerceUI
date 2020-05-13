@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductServiceService} from 'src/app/services/product-service.service'
+import { ProductServiceService } from 'src/app/services/product-service.service'
 import { from } from 'rxjs';
 @Component({
   selector: 'app-products',
@@ -9,23 +9,28 @@ import { from } from 'rxjs';
 export class ProductsComponent implements OnInit {
 
   constructor(private myService: ProductServiceService) { }
- Products ;
-  ngOnInit(){
+  AllProducts;
+  Products;
+  mymodel;
+  ngOnInit() {
 
     let subscrription = this.myService.getProducts()
-    .subscribe((Products) => {
-      console.log(Products)
-      this.Products = Products
-    },
-      (err) => {
-        console.log(err)
-      })
-  console.log(subscrription)
+      .subscribe((Products) => {
+        console.log(Products)
+        this.Products = Products;
+        this.AllProducts = Products;
+      },
+        (err) => {
+          console.log(err)
+        })
+    console.log(subscrription)
   }
 
-  showDetails(param){
+  showDetails(param) {
     console.log(param);
   }
 
-
+  Search(event) {
+    this.Products = this.AllProducts.filter(p => p.title.includes(event.target.value))
+  }
 }

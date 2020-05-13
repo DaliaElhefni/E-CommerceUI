@@ -67,16 +67,16 @@ export class RegisterComponent implements OnInit {
     formData.append('profileimage', this.profileimage, this.profileimage.name);
     formData.append('gender', this.registerForm.get('gender').value);
 
-    // for (var pair of formData.entries()) {
-    //     console.log(pair[0]+ ', ' + pair[1]); 
-    // }
 
     this._authenticationService.registerUser(formData)
       .subscribe(
         res => {
           this.cookie.set('token', res.token);
           this.toastr.success("Succesful Register");
-          this.router.navigate([`home`, { }]);
+          this.router.navigate(['/home'])
+          .then(() => {
+           window.location.reload();
+          });
         },
         err => {
           console.log(err)

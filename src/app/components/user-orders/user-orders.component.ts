@@ -38,7 +38,6 @@ export class UserOrdersComponent implements OnInit, OnDestroy {
         }
       },
         (err) => {
-          console.log(err)
         });
   }
 

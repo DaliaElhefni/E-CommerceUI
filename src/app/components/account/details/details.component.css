@@ -19,3 +19,14 @@
     display: block;
 }
 
+.orangeColor{
+    color: #f16821 !important;
+}
+
+.titleSize{
+    font-size: 30px;
+}
+.subTitleSize{
+    font-size: 18px;
+}
+

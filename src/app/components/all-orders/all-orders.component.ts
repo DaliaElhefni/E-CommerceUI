@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OrdersService } from 'src/app/services/orders.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-all-orders',
@@ -12,7 +13,7 @@ export class AllOrdersComponent implements OnInit, OnDestroy {
   orders = [];
   subscriber;
 
-  constructor(private ordersService: OrdersService, private router: Router) {
+  constructor(private toastr: ToastrService, private ordersService: OrdersService, private router: Router) {
   }
   ngOnDestroy(): void {
     this.subscriber.unsubscribe();
@@ -27,7 +28,6 @@ export class AllOrdersComponent implements OnInit, OnDestroy {
         }
       },
         (err) => {
-          console.log(err.error);
         });
   }
 
@@ -37,11 +37,10 @@ export class AllOrdersComponent implements OnInit, OnDestroy {
     this.subscriber = this.ordersService.changeOrderState(order)
       .subscribe((res: string) => {
         if (res) {
-          console.log(res);
+          this.toastr.success("Order Accepted Successfully!");
         }
       },
         (err) => {
-          console.log(err);
           order.status = "pending";
         });
   }
@@ -52,11 +51,10 @@ export class AllOrdersComponent implements OnInit, OnDestroy {
     this.subscriber = this.ordersService.changeOrderState(order)
       .subscribe((res: string) => {
         if (res) {
-          console.log(res);
+          this.toastr.success("Order Rejected Successfully!");
         }
       },
         (err) => {
-          console.log(err);
           order.status = "pending";
         });
   }
@@ -70,7 +68,7 @@ export class AllOrdersComponent implements OnInit, OnDestroy {
         }
         parent = parent.parentElement;
       }
-      const orderNumber= parent.childNodes[1].childNodes[0].textContent.substring(1);
+      const orderNumber = parent.childNodes[1].childNodes[0].textContent.substring(1);
       this.router.navigate([`orders/${param}`, { orderNumber: orderNumber }]);
     }
   }

@@ -58,3 +58,7 @@ tbody td div:hover{
         border-radius: 15px;
     }
 }
+
+.pendingColor{
+    color: rgb(2, 2, 77) !important;
+}

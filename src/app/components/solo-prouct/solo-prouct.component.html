@@ -1,22 +1,135 @@
-<div class="card mb-3 center "style="max-width: 28rem;  margin: 0 auto;
-float: none;
-margin-bottom: 10px; ">
-    <div class="card-footer" style="background-color:#f3864d;"> <small class="text-muted">  {{product.title}} details </small></div>
+<div class=" row m-0 p-0 mt-5 " style=" display: flex; justify-content: center; flex-direction: row;">
 
-    <img  class="card-img-top" src="http://localhost:3000/uploads//{{product.productimage}}"  
-    style="max-width: 25rem; margin: 0 auto;
-    float: none;
-    margin-bottom: 10px;"  alt="product image">
+  <div class="card mb-4 mx-auto " style="width: 800px; background-color:  #f3864d; max-width: 28rem;  margin: 0 auto; float: none; 
+      margin-bottom: 10px;  margin-left: 230px;" *ngIf="product">
+    <div *ngIf="user?.role == 'admin'">
+      <button class="btn" style=" background-color: black; color: white; "
+        (click)='deletproduct()'><i class="fas fa-trash mr-3"></i>Delete</button>
+    </div>
+
+    <h5 class="card-title  text-center rounded-right"
+      style="border: white;  text-decoration: solid; font-size: 40px; font-weight: bold; color: white;">
+      Details </h5>
+    <img class="card-img-top rounded-circle " src="http://localhost:3000/uploads//{{product?.productimage}}" style="max-width: 25rem;
+      margin: 0 auto; float: none; margin-bottom: 10px;" alt="product image">
 
     <div class="card-body">
-      <h5 class="card-title"> Title :  {{product.title}}</h5>
-      <p class="card-text"> Quantity :  {{product.quantity}} </p>
-      <p class="card-text"> Price : {{product.price}} </p>
-      <p class="card-text"> Details : {{product.details}} </p>
-      <p class="card-text"> Promotion :{{product.promotion}} </p>
+      <h5 class="card-title text-capitalize" style="text-decoration: solid; font-size: 40px; font-weight: bold; color: white;"> Title :
+        {{product?.title}}</h5>
 
+      <div class="container card-text border border-white" style=" color: white;  font-size: 25px ; margin-top: 50px; 
+          margin-bottom: 50px;">
+        <div class="container">
+          <div class="row  margin-top: 10px;">
+
+            <div class="col-sm">
+              <p class="card-text"> Quantity : {{product?.quantity}} </p>
+            </div>
+          </div>
+
+          <div class="row  margin-top: 10px;">
+
+            <div class="col-sm">
+              <p class="card-text"> Price : {{product?.price}} </p>
+            </div>
+          </div>
+
+          <div class="row  margin-top: 10px;" *ngIf="product.promotion > 0">
+            <div class="col-sm">
+              <p class="card-text"> Promotion : {{product?.promotion}}% </p>
+            </div>
+          </div>
+        </div>
+        <div class="row  margin-top: 10px;">
+          <div class="col-sm">
+            <p class="card-text ml-3 text-capitalize">Details : {{product?.details}} </p>
+          </div>
+        </div>
+      </div>
 
     </div>
-    <div class="card-footer" style="background-color: #f3864d;"> <small class="text-muted"> Last updated 3 mins ago  </small></div>
+
+    <div>
+      <div class="card w-100">
+        <div class="row  m-0 p-3">
+          <button class="btn button button4 center text-center rounded  mr-2" style="width: 200px; background-color: black ; color:white; 
+            display: flex; align-items: center; justify-content: center;" (click)='AddToCart()'>
+            Add To Cart</button>
+
+          <button class="btn button button4 center text-center rounded" style="width: 200px;  background-color: black ; color:white; 
+            display: flex; align-items: center; justify-content: center;" data-toggle="modal" data-target="#exampleModal"
+            *ngIf="user?.role == 'admin'" >
+            Update
+          </button>
+         
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer" style="background-color: black;"> <small class="text-muted">
+        Last updated 3 mins ago </small></div>
 
   </div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"> Update Product </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="Form" (ngSubmit)="UpdateProduct()">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Title</label>
+                <input formControlName="title" name="title" id="title" #title type="text" class="form-control"
+                  id="title">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Quantity</label>
+                <input formControlName="quantity" name="quantity" id="quantity" #quantity type="number"
+                  class="form-control" id="quantity">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Price</label>
+                <input formControlName="price" name="price" id="price" #price type="number" class="form-control"
+                  id="price" value="">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Details</label>
+                <input formControlName="details" name="details" id="details" #details type="text" class="form-control"
+                  id="details">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Promotion</label>
+                <input formControlName="promotion" id="promotion" name="promotion" #promotion type="number"
+                  class="form-control" id="promotion">
+              </div>
+              <div class="form-group col-md-6">
+                <input class="form-control" id="isdeleted" value="false" hidden=true>
+                <div class="form-group">
+                  <label for="exampleFormControlFile1">Product Image</label>
+                  <input id="Productimage" name="Productimage" type="file" class="form-control-file" (change)="onFileChange($event)" #Productimage>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+              <button class="btn btn-primary " style="background-color:#f16821 ; " type="submit">Update</button>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

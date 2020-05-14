@@ -20,9 +20,7 @@ export class RegisterComponent implements OnInit {
   submitted = false;
   profileimage: File;
   errorMessage = null;
-  constructor(private toastr: ToastrService, private _authenticationService: AuthenticationService,  private router: Router, private formBuilder: FormBuilder, private cookie: CookieService) {
-
-  }
+  constructor(private toastr: ToastrService, private _authenticationService: AuthenticationService,  private router: Router, private formBuilder: FormBuilder, private cookie: CookieService) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -47,16 +45,13 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-
     this.submitted = true;
     this.errorMessage = null;
 
     // stop here if form is invalid
     if (this.registerForm.invalid) {
-      console.log("invalid")
       return;
     }
-
 
     // put data in Formdata
     const formData = new FormData();
@@ -66,7 +61,6 @@ export class RegisterComponent implements OnInit {
     formData.append('phone', this.registerForm.get('phone').value);
     formData.append('profileimage', this.profileimage, this.profileimage.name);
     formData.append('gender', this.registerForm.get('gender').value);
-
 
     this._authenticationService.registerUser(formData)
       .subscribe(
@@ -79,8 +73,6 @@ export class RegisterComponent implements OnInit {
           });
         },
         err => {
-          console.log(err)
-          console.log(err.statusText);
           if(err.statusText === "Unknown Error"){
             this.toastr.error("Server is down! Try again later.")
           }
@@ -91,4 +83,5 @@ export class RegisterComponent implements OnInit {
         }
       );
   }
+
 }

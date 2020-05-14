@@ -16,19 +16,14 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   id;
   orderNumber;
 
-  constructor(private ordersService: OrdersService, myActivatedRoute:ActivatedRoute) {
+  constructor(private ordersService: OrdersService, myActivatedRoute: ActivatedRoute) {
     this.id = myActivatedRoute.snapshot.params["id"];
     this.orderNumber = myActivatedRoute.snapshot.params["orderNumber"];
-   }
+  }
+
   ngOnDestroy(): void {
     this.subscriber.unsubscribe();
   }
-
-  getRandomNumber(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
   ngOnInit(): void {
     this.getOrder();
@@ -44,7 +39,6 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
         }
       },
         (err) => {
-          console.log(err)
         });
   }
 }

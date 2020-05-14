@@ -1,18 +1,12 @@
-<div class="offset-1 col-10 offset-lg-2 col-lg-8 shadow mt-5 p-3 pb-5 rounded-top rounded-bottom mb-5">
-    <div class="row p-0 m-0">
+
+<div  class="alert-danger offset-1 col-10 offset-lg-2 col-lg-8 shadow mt-5 p-5 rounded-top rounded-bottom mb-5" *ngIf="!order">
+    <h4 class="text-center">Order is not found!</h4>
+</div>
+
+<div class="offset-1 col-10 offset-lg-2 col-lg-8 shadow mt-5 p-3 pb-5 rounded-top rounded-bottom mb-5" *ngIf="order">
+
+    <div class="row p-0 m-0" >
         <h1 class="col-sm-8 col-md-6 col-12 text-center text-sm-left mb-3 mb-sm-1 orangeColor">Order # {{orderNumber}}</h1>
-        <!-- <div class="offset-sm-0 offset-4 col-xl-2 col-lg-3 col-4 p-2 pendingColor h-50 border border-secondary rounded-top rounded-bottom text-center" *ngIf='order?.status == "pending"'>
-            <i class="fas fa-ellipsis-h mr-lg-2"></i>
-            Pending
-        </div>
-        <div class="offset-sm-0 offset-4 col-xl-2 col-lg-3 col-4 p-2 text-danger h-50 border border-danger rounded-top rounded-bottom text-center" *ngIf='order?.status == "rejected"'>
-            <i class="fas fa-times-circle mr-lg-2 "></i>
-            Rejected
-        </div>
-        <div class="offset-sm-0 offset-4 col-xl-2 col-lg-3 col-4 p-2 text-success h-50 border border-success rounded-top rounded-bottom text-center" *ngIf='order?.status == "accepted"'>
-            <i class="fas fa-check mr-lg-2"></i>
-            Accepted
-        </div> -->
     </div>
 
     <div class="row p-0 m-0 mt-4">

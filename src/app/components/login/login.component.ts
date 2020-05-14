@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   errorMessage = null;
+
   constructor(private toastr: ToastrService, private _authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder, private cookie: CookieService) { }
 
   ngOnInit(): void {
@@ -35,7 +36,6 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     this.errorMessage = null;
     if (this.loginForm.invalid) {
-      console.log("invalid")
       return;
     }
 
@@ -43,33 +43,27 @@ export class LoginComponent implements OnInit {
     formData.append('email', this.loginForm.get('email').value);
     formData.append('password', this.loginForm.get('password').value);
 
-    //   for (var pair of formData.entries()) {
-    //     console.log(pair[0]+ ', ' + pair[1]); 
-    // }
-
     delete this.loginForm.value.confirmPassword;
 
     this._authenticationService.loginUser(this.loginForm.value).subscribe(
       res => {
-        this.cookie.set('token', res.token)
+        this.cookie.set('token', res.token);
         this.toastr.success("Succesful Login");
         this.router.navigate(['/home'])
           .then(() => {
-           window.location.reload();
+            window.location.reload();
           });
       },
       err => {
-        console.log(err)
-        console.log(err.statusText);
         if (err.statusText === "Unknown Error") {
-          this.toastr.error("Server is down! Try again later.")
+          this.toastr.error("Server is down! Try again later.");
         }
         else {
           this.errorMessage = err.error
-          this.toastr.error("Something Wrong, Check Fields Again")
+          this.toastr.error("Something Wrong, Check Fields Again");
         }
       }
-    )
+    );
   }
-
+  
 }

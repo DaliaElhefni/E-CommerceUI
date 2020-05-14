@@ -1,43 +1,122 @@
-<form class="form-inline  col-8 p-0 mx-auto my-5 ">
-  <input class="form-control orangeBorder form-control-sm mr-2 col-11" type="text" placeholder="Search"
+<div class="bg-dark offset-1 col-10 offset-lg-2 col-lg-8 shadow mt-5 p-5 rounded-top rounded-bottom mb-5"
+      *ngIf="!Products || Products.length == 0">
+      <h4 class="text-center " style="color: #f3864d;">No Products yet!</h4>
+    </div>
+
+<form class="form-inline col-8 col-sm-10 col-xl-8 p-0 mx-auto my-5 p-3" *ngIf="Products && Products.length != 0">
+  <input class="form-control orangeBorder form-control-sm mr-2 col-11 p-4 searchFont " type="text" placeholder="Search"
     aria-label="Search" (input)="Search($event)">
   <i class="fas fa-search orangeColor" aria-hidden="true"></i>
 </form>
 
+<div class="container col-8 col-sm-10 col-xl-8 p-0 mx-auto pt-5" *ngIf="Products && Products.length != 0">
+  <div class="row p-0 m-0 mb-4 ml-3" *ngIf='userRole == "admin"' >
+    <button class="btn font-weight-bold p-3 mx-auto mx-md-0" data-toggle="modal" data-target="#exampleModal"
+      type="button" style="background-color: #f16821 
+    ; color:black;">
+      <i class="fas fa-plus mr-2"></i>
+      Add Product
+    </button>
+  </div>
 
 
+  <div class="row p-0 m-0">
 
-
-
-<div class="container  col-8 p-0 mx-auto pt-5">
-  <div class="row m-0 p-0">
-    <div style="width: 300px;  margin-left: 10px; margin-top:20px ;" class="card-deck" *ngFor="let prod of Products">
+    <div class="col-12 col-sm-6 col-lg-4  mt-3 text-center text-sm-left" *ngFor="let prod of Products">
+      <div class="" style="z-index: 5; position: absolute;" *ngIf="prod.promotion > 0">
+        <img class="" src="assets/images/sale.png" width="100" height="100" />
+      </div>
       <div class="card text-white bg-dark mb-3">
-        <img src="http://localhost:3000/uploads//{{prod.productimage}}" class="card-img-top" alt="...">
+        <img src="http://localhost:3000/uploads//{{prod.productimage}}" class="card-img-top" height="200" alt="...">
         <div class="card-body">
-          <h5 class="card-title">
+          <h5 class="card-title text-capitalize">
             Title : {{
-              prod.title
-              
-          }}
+                prod.title
+            }}
           </h5>
           <p class="card-text">
-            price :
-            {{
-                prod.price
-                
-            }}
+            price : {{prod.price}}
           </p>
         </div>
-        <a href="#" class="btn  " routerLinkActive="active" [routerLink]="prod._id"
-          style="width: 150px; text-align: center; margin-left: 20px; background-color: #f16821;">More Details</a>
+        <a class="btn mx-auto ml-sm-3 mb-3 mb-sm-0" routerLinkActive="active" [routerLink]="prod._id"
+          style="background-color: #f16821;">More Details</a>
         <div class="card-footer">
-          <small class="text-muted"> {{
-            prod.details
-            
-        }}</small>
+          <small class="text-muted "> {{prod.details}}</small>
         </div>
       </div>
     </div>
+
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"> Add Product </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="Form" (ngSubmit)="AddProduct()">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Title</label>
+                <input formControlName="title" name="title" id="title" #title type="text" class="form-control "
+                  id="title">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Quantity</label>
+                <input formControlName="quantity" name="quantity" id="quantity" #quantity type="number"
+                  class="form-control" id="quantity">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Price</label>
+                <input formControlName="price" name="price" id="price" #price type="number" class="form-control"
+                  id="price" value="">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Details</label>
+                <input formControlName="details" name="details" id="details" #details type="text" class="form-control"
+                  id="details">
+              </div>
+            </div>
+
+            <div class="form-row">
+
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Promotion</label>
+                <input formControlName="promotion" id="promotion" name="promotion" #promotion type="number"
+                  class="form-control" id="promotion">
+              </div>
+              <div class="form-group col-md-6">
+                <input class="form-control" id="isdeleted" value="false" hidden=true>
+
+                <div class="form-group">
+                  <label for="exampleFormControlFile1">Product Image</label>
+                  <!-- <input #Productimage type="file" class="form-control-file" id="Productimage"> -->
+                  <input  id="Productimage" name="Productimage" type="file"
+                    class="form-control-file" (change)="onFileChange($event)" #Productimage>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+              <button class="btn btn-primary " style="background-color:#f16821 ; " type="submit">Save</button>
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </div>

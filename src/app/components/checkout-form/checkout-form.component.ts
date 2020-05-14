@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
+import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/Models/user.model';
 import { OrdersService } from 'src/app/services/orders.service';
 import { Order } from 'src/app/Models/Order.model';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { CommunicationService } from 'src/app/services/communication.service';
 
 @Component({
   selector: 'app-checkout-form',
@@ -19,20 +20,20 @@ export class CheckoutFormComponent implements OnInit {
   subscriber;
   addressStatus = true;
 
-  constructor(private router: Router, private toastr: ToastrService, private formBuilder: FormBuilder, private _userService: UserService, private ordersService: OrdersService) {
+  constructor(private router: Router, private toastr: ToastrService, private formBuilder: FormBuilder, 
+    private _userService: UsersService, private ordersService: OrdersService, private communicationService: CommunicationService) {
     this.getUser();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
   ngOnDestroy(): void {
-    this.subscriber.unsubscribe();
+    this.subscriber?.unsubscribe();
   }
 
   async getUser() {
     await this._userService.getUser()
-      .subscribe(res => this.initializeUser(res), err => console.log(err));
+      .subscribe(res => this.initializeUser(res), err => {});
   }
 
   initializeUser(response) {
@@ -57,8 +58,6 @@ export class CheckoutFormComponent implements OnInit {
     this.addressStatus = true;
   }
 
-
-
   createOrder() {
     let newOrder = new Order();
     newOrder.address = this.checkoutForm.get('address').value;
@@ -70,6 +69,8 @@ export class CheckoutFormComponent implements OnInit {
       .subscribe((user: User) => {
         if (user) {
           this.toastr.success("Order Sumitted Succesfully!");
+          this.user.products = [];
+          this.communicationService.emitChange(0);
           setTimeout(() => {
             this.router.navigate([`users/${user._id}/orders`, {}]);
           }, 2000)
@@ -83,7 +84,6 @@ export class CheckoutFormComponent implements OnInit {
   validateInput() {
     this.setAddressStatus();
     if (this.checkoutForm.valid && this.addressStatus) {
-      console.log("hoii");
       this.createOrder();
     }
   }

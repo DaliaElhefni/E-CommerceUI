@@ -8,6 +8,9 @@
     cursor: pointer;
 }
 
+.orangeColor{
+    color: #f3864d;
+}
 
 .statusDiv:hover{
     cursor: default;

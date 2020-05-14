@@ -1,18 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DetailsComponent } from './components/account/details/details.component';
-import {UserService} from './services/user.service'
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AboutComponent } from './components/about/about.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {ProductsComponent} from './components/Products/products.component'
-import {ProductServiceService} from './services/product-service.service'
-import { HttpClientModule, HTTP_INTERCEPTORS }  from '@angular/common/http';
+import { ProductsComponent } from './components/Products/products.component'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SoloProuctComponent } from './components/solo-prouct/solo-prouct.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
@@ -29,6 +27,10 @@ import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { MessageComponent } from './components/message/message.component';
 import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
+import { ProductsService } from './services/products.service';
+import { UsersService } from './services/users.service';
+import { CartComponent } from './components/cart/cart.component';
+import { CommunicationService } from './services/communication.service';
 
 
 
@@ -49,7 +51,8 @@ import { CheckoutFormComponent } from './components/checkout-form/checkout-form.
     HomeComponent,
     ErrorComponent,
     MessageComponent,
-    CheckoutFormComponent
+    CheckoutFormComponent,
+    CartComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -62,14 +65,19 @@ import { CheckoutFormComponent } from './components/checkout-form/checkout-form.
     CommonModule,
     FontAwesomeModule,
   ],
-  providers: [AuthenticationService,UserService,CookieService,{
-  provide:  HTTP_INTERCEPTORS,
-  useClass: TokenInterceptorService,
-  multi: true  
-  },
-  ProductServiceService,
-  OrdersService,
-],
+  providers: [
+    AuthenticationService,
+    CookieService,
+    OrdersService,
+    ProductsService,
+    UsersService,
+    CommunicationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

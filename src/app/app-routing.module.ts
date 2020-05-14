@@ -16,6 +16,7 @@ import { MessageComponent } from './components/message/message.component';
 import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
 import { AuthenticationGuardService as AuthenticationGuard } from './services/authentication-guard.service';
 import { AuthenticationRoleGuardService as AuthenticationRoleGuard } from './services/authentication-role-guard.service';
+import { CartComponent } from './components/cart/cart.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'orders/:id', component: OrderDetailsComponent, canActivate: [AuthenticationGuard]  },
   { path: 'users/:id/orders', component: UserOrdersComponent , canActivate: [AuthenticationGuard] },
   { path: 'products/:id', component: SoloProuctComponent, canActivate: [AuthenticationGuard]  },
+  { path: 'cart', component: CartComponent, canActivate: [AuthenticationGuard]  },
   { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

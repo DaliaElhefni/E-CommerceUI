@@ -27,7 +27,7 @@
           <button class="navbar-toggler offset-9" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse col-md-12 col-4 offset-md-0 offset-4 offset-sm-5" id="navbarNav">
+          <div class="collapse navbar-collapse col-md-12 col-8 offset-md-0 offset-4 offset-sm-5" id="navbarNav">
             <ul class="navbar-nav col-11 col-md-10 col-lg-8 offset-lg-1 text-dark">
               <li class="nav-item col">
                 <a class="nav-link" [routerLinkActiveOptions]='{exact:true}' routerLinkActive="active"
@@ -46,6 +46,19 @@
               <li class="nav-item col">
                 <a class="nav-link" [routerLinkActiveOptions]='{exact:true}' routerLinkActive="active"
                   routerLink="about">About</a>
+              </li>
+
+              <li class="nav-item col" *ngIf="user">
+                <!-- <a class="nav-link" [routerLinkActiveOptions]='{exact:true}' routerLinkActive="active"
+                  routerLink="about">About</a> -->
+                  <a class="nav-link" [routerLinkActiveOptions]='{exact:true}' routerLinkActive="active"
+                  routerLink="cart">
+                  <div class="row p-0 m-0">
+                    <i class="fas fa-shopping-cart fa-lg col-6 p-0" ></i> 
+                    <span class="badge orangeColorBG text-white badge-pill col-4 p-0 p-1 ml-4" style="position: absolute;">{{cartCount}}</span>
+                  </div>
+                </a>
+                  
               </li>
 
               <li class="nav-link col pt-0" *ngIf="user">
@@ -79,6 +92,7 @@
                   </div>
                 </div>
               </li>
+             
             </ul>
           </div>
         </nav>

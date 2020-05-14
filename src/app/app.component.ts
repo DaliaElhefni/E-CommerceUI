@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { UserService } from './services/user.service';
+import { UsersService } from './services/users.service';
 import { User } from './Models/user.model';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { CommunicationService } from './services/communication.service';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,12 @@ export class AppComponent {
   title = 'Project-Frontend';
   userLoaded;
   user: User;
-  constructor(private router: Router, private _userService: UserService, private cookie: CookieService) {
-
+  cartCount;
+  constructor(private router: Router, private _userService: UsersService, private cookie: CookieService,  private communicationService: CommunicationService) {
+    communicationService.changeEmitted$.subscribe(data => {
+      this.cartCount = data;
+      // here fetch data from the session storage 
+    });
   }
   ngOnInit(): void {
     try {
@@ -36,6 +41,7 @@ export class AppComponent {
   initializeUser(response) {
     this.user = new User();
     this.user = response;
+    this.cartCount = this.user.products.length;
   }
 
   toggleDropdown() {

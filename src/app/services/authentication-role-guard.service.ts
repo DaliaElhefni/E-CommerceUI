@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { User } from '../Models/user.model';
-import { UserService } from './user.service';
+import { UsersService } from './users.service';
 import { CookieService } from 'ngx-cookie-service';
 import decode from 'jwt-decode';
 
@@ -11,7 +11,7 @@ import decode from 'jwt-decode';
 })
 export class AuthenticationRoleGuardService implements CanActivate {
 
-  constructor(public auth: AuthenticationService, public router: Router, private _userService: UserService , private cookie : CookieService) { }
+  constructor(public auth: AuthenticationService, public router: Router, private _userService: UsersService , private cookie : CookieService) { }
   canActivate(): boolean {
     if (this.auth.isAuthenticated() && this.isUserAdmin()) {
       return true;

@@ -12,10 +12,14 @@ export class UserOrdersComponent implements OnInit, OnDestroy {
   orders = [];
   subscriber;
 
-  constructor(private ordersService: OrdersService, private router: Router) {
+  constructor(private ordersService: OrdersService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.getUserOrders("1");
   }
+
   ngOnDestroy(): void {
-    this.subscriber.unsubscribe()
+    this.subscriber.unsubscribe();
   }
 
   getUserOrders(id) {
@@ -26,7 +30,6 @@ export class UserOrdersComponent implements OnInit, OnDestroy {
         }
       },
         (err) => {
-          console.log(err)
         });
   }
 
@@ -38,7 +41,6 @@ export class UserOrdersComponent implements OnInit, OnDestroy {
         }
       },
         (err) => {
-          console.log(err)
         });
   }
 
@@ -55,7 +57,5 @@ export class UserOrdersComponent implements OnInit, OnDestroy {
       this.router.navigate([`orders/${param}`, { orderNumber: orderNumber }]);
     }
   }
-  ngOnInit(): void {
-    this.getUserOrders("1");
-  }
+
 }

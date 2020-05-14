@@ -1,10 +1,9 @@
-import { User } from './user.model';
-
 export class Order {
+    _id: string;
     date : Date ;
     address : string ;
     status : string ; 
     totalprice : number ; 
-    user: User ;
+    user: string ;
     products: Array<any>;
 }

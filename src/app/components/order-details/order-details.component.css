@@ -11,5 +11,11 @@
     color: #f16821;
 }
 
+.pendingColor{
+    color: rgb(2, 2, 77) !important;
+    border-color: rgb(2, 2, 77) !important;
+
+}
+
 
 

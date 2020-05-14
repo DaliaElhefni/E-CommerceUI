@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { UserService } from './services/user.service';
+import { UsersService } from './services/users.service';
 import { User } from './Models/user.model';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { CommunicationService } from './services/communication.service';
 
 @Component({
   selector: 'app-root',
@@ -11,47 +12,53 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'Project-Frontend';
-  user : User;
-  constructor(private router: Router,private _userService: UserService , private cookie:CookieService){
-    
+  userLoaded;
+  user: User;
+  cartCount;
+  constructor(private router: Router, private _userService: UsersService, private cookie: CookieService,  private communicationService: CommunicationService) {
+    communicationService.changeEmitted$.subscribe(data => {
+      this.cartCount = data;
+      // here fetch data from the session storage 
+    });
   }
   ngOnInit(): void {
-    
-    this._userService.getUser()
-      .subscribe(
-        res => this.initializeUser(res),
-        err => console.log(err)
-      )
+    try {
+      this._userService.getUser()
+        .subscribe(
+          res => {
+            this.initializeUser(res);
+            this.userLoaded = true;
+          },
+          err => {
+            this.userLoaded = false;
+          }
+        )
+    }
+    catch{
+    }
   }
+
   initializeUser(response) {
     this.user = new User();
     this.user = response;
+    this.cartCount = this.user.products.length;
   }
-  toggleDropdown(){
-    var dropDownIcon= document.querySelector("#dropDownIcon");
-    if(dropDownIcon.classList.contains("fa-angle-up")){
+
+  toggleDropdown() {
+    var dropDownIcon = document.querySelector("#dropDownIcon");
+    if (dropDownIcon.classList.contains("fa-angle-up")) {
       dropDownIcon.classList.remove("fa-angle-up");
       dropDownIcon.classList.add("fa-angle-down");
       return;
     }
+    
     dropDownIcon.classList.remove("fa-angle-down");
     dropDownIcon.classList.add("fa-angle-up");
   }
 
- async onLogout(){
+  async onLogout() {
     this.cookie.delete('token');
-  await  this.router.navigate([`home`, { }]);
-    window.location.reload()
-  }
-
-  checkTokenExists(){
-    if(this.cookie.check('token')){
-      this.router.navigate([`products`, { }]);
-    }else{
-      this.router.navigate([`message`, { }]);
-      setTimeout(()=>{
-      this.router.navigate([`login`, { }]);
-      },3000)
-    }
+    await this.router.navigate([`home`, {}]);
+    window.location.reload();
   }
 }

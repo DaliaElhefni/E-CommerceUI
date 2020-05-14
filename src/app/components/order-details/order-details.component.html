@@ -1,22 +1,16 @@
-<div class="offset-1 col-10 offset-lg-2 col-lg-8 shadow mt-5 p-3 pb-5 rounded-top rounded-bottom mb-5">
-    <div class="row p-0 m-0">
-        <h1 class="col-sm-8 col-md-6 col-12 text-center text-sm-left mb-5 mb-sm-1 orangeColor">Order # {{orderNumber}}</h1>
-        <div class="offset-sm-0 offset-4 col-xl-2 col-lg-3 col-4 p-2 text-secondary h-50 border border-secondary rounded-top rounded-bottom text-center" *ngIf='order.status == "pending"'>
-            <i class="fas fa-ellipsis-h mr-lg-2"></i>
-            Pending
-        </div>
-        <div class="offset-sm-0 offset-4 col-xl-2 col-lg-3 col-4 p-2 text-danger h-50 border border-danger rounded-top rounded-bottom text-center" *ngIf='order.status == "rejected"'>
-            <i class="fas fa-times-circle mr-lg-2 "></i>
-            Rejected
-        </div>
-        <div class="offset-sm-0 offset-4 col-xl-2 col-lg-3 col-4 p-2 text-success h-50 border border-success rounded-top rounded-bottom text-center" *ngIf='order.status == "accepted"'>
-            <i class="fas fa-check mr-lg-2"></i>
-            Accepted
-        </div>
+
+<div  class="alert-danger offset-1 col-10 offset-lg-2 col-lg-8 shadow mt-5 p-5 rounded-top rounded-bottom mb-5" *ngIf="!order">
+    <h4 class="text-center">Order is not found!</h4>
+</div>
+
+<div class="offset-1 col-10 offset-lg-2 col-lg-8 shadow mt-5 p-3 pb-5 rounded-top rounded-bottom mb-5" *ngIf="order">
+
+    <div class="row p-0 m-0" >
+        <h1 class="col-sm-8 col-md-6 col-12 text-center text-sm-left mb-3 mb-sm-1 orangeColor">Order # {{orderNumber}}</h1>
     </div>
 
     <div class="row p-0 m-0 mt-4">
-        <h6 class="col-11 ml-2 text-center text-sm-left">{{order.date| customFormatOrderDate}}</h6>
+        <h6 class="col-11 ml-2 text-center text-sm-left">{{order?.date| customFormatOrderDate}}</h6>
     </div>
 
     <div class="row m-0 mt-4 d-block ">
@@ -43,14 +37,13 @@
         </div>
 
 
-        <div class="row m-0 p-0  border-left border-right text-center text-md-left " *ngFor="let product of order.products">
+        <div class="row m-0 p-0  border-left border-right text-center text-md-left " *ngFor="let product of order?.products">
             <div class="col-md-3 col-12 p-md-3 pt-md-4 mt-3">
                 <p class="d-md-none font-weight-bold">Product Name</p>
                 <p class="text-capitalize ">{{product.product.title}}</p>
             </div>
             <div class="col-md-3 p-md-3 pt-md-4">
-                <!-- <p >{{product.product.productimage}}</p> -->
-                <img [src]="imageSrc" alt="" width="100" height="80" class="mb-3 mb-md-0">
+                <img src="http://localhost:3000/uploads//{{product.product.productimage}}" alt="" width="100" height="80" class="mb-3 rounded mb-md-0">
             </div>
             <div class="col-md-3 p-md-3 pt-md-4  ">
                 <p class="d-md-none font-weight-bold">Quantity Ordered</p>
@@ -72,7 +65,7 @@
                 <h6 class="font-weight-bold orangeColor">Total</h6>
             </div>
             <div class="col-md-3 p-3 pt-4">
-                <p class="orangeColor font-weight-bold">{{order.totalprice}}</p>
+                <p class="orangeColor font-weight-bold">{{order?.totalprice}}</p>
             </div>
         </div>
     </div>
@@ -84,11 +77,11 @@
         <div class="row p-0 m-0 mt-4 ">
             <div class="col-md-4">
                 <h5 class="font-weight-bold"> Shipping Address</h5>
-                <p>{{order.address}}</p>
+                <p>{{order?.address}}</p>
             </div>
             <div class="col-md-4">
                 <h5 class="font-weight-bold"> Billing Address</h5>
-                <p>{{order.address}}</p>
+                <p>{{order?.address}}</p>
             </div>
             <div class="col-md-4">
                 <h5 class="font-weight-bold"> Shipping Date</h5>

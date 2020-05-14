@@ -1,0 +1,83 @@
+<div class=" row p-0 m-0" style=" display: flex; justify-content: center; flex-direction: row; margin-left: 100px ;">
+  <div class="card mb-3 p-3 pb-5 mt-5 mx-auto col-10 offset-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3"
+    style="background-color: black;">
+
+    <div class="card w-150" style="background-color: #f16821;">
+      <div class="card-body">
+        <div class="row p-0 m-0">
+          <!-- <img class="col-2" src="assets/Cart.jpg" style="width: 40px ; height: 80px;"> -->
+          <svg style="width: 50px;" aria-hidden="true" focusable="false" data-prefix="far" data-icon="shopping-cart"
+            role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+            class="svg-inline--fa fa-shopping-cart fa-w-18 fa-5x">
+            <path fill="currentColor"
+              d="M551.991 64H144.28l-8.726-44.608C133.35 8.128 123.478 0 112 0H12C5.373 0 0 5.373 0 12v24c0 6.627 5.373 12 12 12h80.24l69.594 355.701C150.796 415.201 144 430.802 144 448c0 35.346 28.654 64 64 64s64-28.654 64-64a63.681 63.681 0 0 0-8.583-32h145.167a63.681 63.681 0 0 0-8.583 32c0 35.346 28.654 64 64 64 35.346 0 64-28.654 64-64 0-18.136-7.556-34.496-19.676-46.142l1.035-4.757c3.254-14.96-8.142-29.101-23.452-29.101H203.76l-9.39-48h312.405c11.29 0 21.054-7.869 23.452-18.902l45.216-208C578.695 78.139 567.299 64 551.991 64zM208 472c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm256 0c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm23.438-200H184.98l-31.31-160h368.548l-34.78 160z"
+              class=""></path>
+          </svg>
+          <h2 class="ml-3" style="  color: white; font: outline; text-decoration: solid;">
+            Cart Products
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="row m-0 p-0 bg-white p-3 rounded mt-3" *ngIf="Products.length == 0" style="height: 400px;">
+      <h4 class="mx-auto my-auto">No Products yet!</h4>
+    </div>
+
+    <div class="card row m-0 p-0 mt-3"  *ngFor="let prod of Products">
+      <div class="card-body">
+        <div class="row m-0 p-0">
+          <p class="col-4 col-md-2 p-0">
+            <img class="card-img-top rounded-circle h-75 mt-3"
+              src="http://localhost:3000/uploads//{{prod.product.productimage}}" style=" margin: 0 auto; " alt="product image">
+          </p>
+          <div class="col-8 col-md-10">
+            <div class="row p-0 m-0">
+              <div class="col-11 p-0">
+                <p class="row p-0 m-0" style="font-size: 30px; font-style: normal;  margin-top: 14px; ">
+                  Name: {{prod.product.title}}
+                </p>
+                <p class="row p-0 m-0"
+                  style="font-size: 30px; font-style: normal;  margin-right: 10px; margin-top: 14px;">
+                  Price: {{prod.product.price}}
+                </p>
+                <p class="row p-0 m-0"
+                  style="font-size: 30px; font-style: normal;  margin-right: 10px; margin-top: 14px;">
+                  Total Price: {{prod.product.price * prod.quantityordered}}
+                </p>
+              </div>
+              <div class="col-1 p-0">
+                <button value="delete" (click)='DeleteProductFromcart(prod.product._id)' class="btn bg-dark "
+                  style="color: #f16821;  "><i class="fas fa-trash "></i>
+                </button>
+              </div>
+            </div>
+            <div class="row p-0 m-0 mt-1">
+              <p class="col-12 col-md-4 p-0" style="font-size: 30px; font-style: normal;">Quantity: </p>
+              <div class="col-12 col-md-8 p-0">
+                <div class="row m-0 p-0 text-center">
+                  <button value="delete" (click)='updateQantity(prod.product._id, prod.quantityordered)'
+                    class="btn h-25 col-2 mt-2 font-weight-bold" style="background-color: #f16821;">
+                    <i class="fas fa-minus "></i>
+                  </button>
+                  <p class="col-4 p-0 m-0 " style="font-size: 30px; font-style: normal;">
+                    {{prod.quantityordered}}
+                  </p>
+                  <button value="delete" class="btn h-25 col-2 mt-2 font-weight-bold "
+                    (click)='updateAddedQantity(prod.product._id, prod.quantityordered)'
+                    style="background-color: #f16821;">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row m-0 p-0 mt-4" *ngIf="Products.length != 0">
+      <a class="btn bg-light mx-auto font-weight-bold col-4 py-3" style="color: #f16821;" routerLink="../checkout">Checkout</a>
+    </div>
+
+  </div>

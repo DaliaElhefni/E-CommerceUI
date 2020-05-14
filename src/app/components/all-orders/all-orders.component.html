@@ -1,5 +1,8 @@
+<div  class="bg-dark orangeColor offset-1 col-10 offset-lg-2 col-lg-8 shadow mt-5 p-5 rounded-top rounded-bottom mb-5" *ngIf="orders.length == 0">
+    <h4 class="text-center ">No orders yet!</h4>
+</div>
 
-<div class="offset-xl-2 offset-md-1 col-md-10 col-xl-8 col-10 offset-1  mt-5 mt-md-3  p-0 mb-5">
+<div class="offset-xl-2 offset-md-1 col-md-10 col-xl-8 col-10 offset-1  mt-5 mt-md-3  p-0 mb-5" *ngIf="orders.length != 0">
     <div class="bg-white row d-block m-0 p-0 shadow rounded-bottom text-center text-md-left">
         <div class="row p-0 pl-3 pr-2 pt-3  m-0 tablehead bg-dark rounded-top  d-none d-md-flex">
             <div class="col-1 p-0">
@@ -44,7 +47,7 @@
                 <p>{{order.totalprice}}</p>
             </div>
             <div class=" offset-4 offset-md-0 col-4 col-md-2 p-0 pb-4 pb-md-0 mt-sm-4 mt-md-0">
-                <div class="p-1 ml-md-0 pr-3 pr-lg-0 alert-secondary statusWidth text-center statusDiv " *ngIf='order.status == "pending"' disabled>
+                <div class="p-1 ml-md-0 pr-3 pr-lg-0 pendingColor alert-info statusWidth text-center statusDiv " *ngIf='order.status == "pending"' disabled>
                     <i class="fas fa-ellipsis-h  mr-lg-2"></i>
                     Pending
                 </div>

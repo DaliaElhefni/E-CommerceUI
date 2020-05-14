@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../services/user.service'
+import { UsersService } from '../../../services/users.service'
 import { AuthenticationService } from '../../../services/authentication.service'
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
@@ -14,15 +14,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DetailsComponent implements OnInit {
 
-
-
   errorMessage = null;
   submitted = false;
   showImageModale = false;
   showPersonalModale = false;
   showContactModale = false;
   showPasswordModale = false;
-
 
   updatedImage: File;
   imageForm: FormGroup;
@@ -39,16 +36,15 @@ export class DetailsComponent implements OnInit {
   password;
   language;
 
-
-  constructor(private toastr: ToastrService, private sanitizer: DomSanitizer, private _userService: UserService, private cookie: CookieService, private _a: AuthenticationService, private formBuilder: FormBuilder) { }
-  token = this.cookie.get('token')
+  constructor(private toastr: ToastrService, private sanitizer: DomSanitizer, private _userService: UsersService, private cookie: CookieService, private _a: AuthenticationService, private formBuilder: FormBuilder) { }
+  token = this.cookie.get('token');
 
   ngOnInit(): void {
     this.onLoad();
 
     this.imageForm = this.formBuilder.group({
       "profileimage": ['', Validators.required]
-    })
+    });
 
     this.personalForm = this.formBuilder.group({
       "username": ['', [Validators.required]],
@@ -77,17 +73,13 @@ export class DetailsComponent implements OnInit {
 
 
   onLoad() {
-
     this._userService.getUser()
       .subscribe(
         res => this.handleResponse(res),
-        err => console.log(err)
-      )
-
+      );
   }
 
   handleResponse(response) {
-    console.log(response);
     this.username = response.username;
     this.email = response.email;
     this.profileimage = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + response.profileimage);
@@ -102,15 +94,8 @@ export class DetailsComponent implements OnInit {
   }
 
   onImageUpdate() {
-
-    console.log(this.updatedImage.name)
     const formData = new FormData();
     formData.append('profileimage', this.updatedImage, this.updatedImage.name);
-
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
-
     this._userService.updateUser(formData).subscribe(
       err => this.toastr.error("Try Again Later"),
       res => {
@@ -118,39 +103,27 @@ export class DetailsComponent implements OnInit {
         this.onLoad();
       }
     );
-
-  }
-
-  changeShowImageModale(){
-    console.log(this.showImageModale);
-    
   }
 
   onPersonalUpdate() {
     this.submitted = true;
-
     // stop here if form is invalid
     if (this.personalForm.invalid) {
-      console.log("invalid")
       return;
     }
-
     this._userService.updateUser(this.personalForm.value).subscribe(
       err => this.toastr.error("Try Again Later"),
       res => {
         this.toastr.success("Updated Succesfully");
         this.onLoad();
       }
-    )
-
-
+    );
   }
 
   onContactUpdate() {
     this.submitted = true;
     // stop here if form is invalid
     if (this.contactForm.invalid) {
-      console.log("invalid")
       return;
     }
 
@@ -160,22 +133,18 @@ export class DetailsComponent implements OnInit {
         this.toastr.success("Updated Succesfully");
         this.onLoad();
       }
-    )
-
+    );
   }
 
   onPasswordUpdate() {
     this.submitted = true;
     // stop here if form is invalid
     if (this.passwordForm.invalid) {
-      console.log("invalid")
       return;
     }
 
     const formData = new FormData();
     formData.append('password', this.passwordForm.get('password').value);
-
-    console.log({ 'password': this.passwordForm.value.password })
 
     this._userService.updateUser({ 'password': this.passwordForm.value.password }).subscribe(
       err => this.toastr.error("Try Again Later"),
@@ -183,8 +152,6 @@ export class DetailsComponent implements OnInit {
         this.toastr.success("Updated Succesfully");
         this.onLoad();
       }
-    )
-
+    );
   }
-
 }

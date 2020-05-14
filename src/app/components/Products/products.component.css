@@ -1,0 +1,18 @@
+.orangeColor{
+    color: #f16821 !important;
+}
+
+.orangeBorder{
+    border-color: #f16821 !important;
+}
+
+.removeBorders{
+    border-right: none !important;
+    border-left: none !important;
+    border-radius: 0 !important;
+    border-top: none !important;
+}
+
+.searchFont{
+    font-size: 20px;
+}
